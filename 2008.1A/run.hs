@@ -27,6 +27,8 @@ dataImport s = caseify 1 $ tail $ lines s
 
 -- Go
 main = do
-  input <- readFile "A-small-practice.in"
+  inFile <- getArgs
+  putStrLn $ show inFile
+  input <- readFile inFile
 --  putStrLn $ show $ dataImport $ take 100 input
   putStrLn $ unlines $ map prettyCase $ dataImport input
