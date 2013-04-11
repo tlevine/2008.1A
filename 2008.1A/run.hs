@@ -17,7 +17,7 @@ caseify (n:v1:v2:rest) = (vectorize v1, vectorize v2):(caseify rest)
 caseify [] = []
 
 vectorize :: String -> Vector
-vectorize _ = [1,2,3] -- words . (map (\w -> (read w :: Integer)))
+vectorize = words . (map (\w -> (read w :: Integer)))
 
 main = do
   input <- readFile "A-small-practice.in"
