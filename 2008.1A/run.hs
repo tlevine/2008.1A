@@ -1,25 +1,22 @@
 type Vector = [Integer]
 type Case = (Vector, Vector)
 
-v1 :: Vector
-v1 = [1..3]
-
-v2 :: Vector
-v2 = [0..2]
-
-
-scalarProduct :: Vector -> Vector -> Vector
-scalarProduct = zipWith (*)
-
-
+-- Import
 caseify :: [String] -> [Case]
-caseify (n:v1:v2:rest) = (vectorize v1, vectorize v2):(caseify rest)
 caseify [] = []
+caseify (n:v1:v2:rest) = (vectorize v1, vectorize v2):(caseify rest)
 
 vectorize :: String -> Vector
 vectorize v = map (\w -> (read w :: Integer)) $ words v
--- vectorize = words . (map (\w -> (read w :: Integer)))
 
+-- Scalar product
+scalarProduct :: Vector -> Vector -> Vector
+scalarProduct = zipWith (*)
+
+minimumScalarProduct :: Vector -> Vector -> Integer
+minimumScalarProduct v1 v2 = scalarProduct (sort v1) (reverse $ sort v2)
+
+-- Go
 main = do
   input <- readFile "A-small-practice.in"
   -- putStrLn $ show $ caseify $ tail $ lines input
