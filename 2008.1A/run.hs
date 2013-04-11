@@ -4,9 +4,9 @@ type Vector = [Integer]
 type Case = (Integer, Vector, Vector)
 
 -- Import
-caseify :: [String] -> [Case]
-caseify [] = []
-caseify (n:v1:v2:rest) = ((read n :: Integer), vectorize v1, vectorize v2):(caseify rest)
+caseify :: Integer -> [String] -> [Case]
+caseify n [] = []
+caseify n (_:v1:v2:rest) = (n, vectorize v1, vectorize v2):(caseify (n + 1) rest)
 
 vectorize :: String -> Vector
 vectorize v = map (\w -> (read w :: Integer)) $ words v
@@ -22,9 +22,11 @@ prettyCase (n,v1,v2) = "Case #" ++ (show n) ++ ": " ++ (show msp)
     msp = minimumScalarProduct v1 v2
 
 dataImport :: String -> [Case]
-dataImport s = caseify $ lines $ tail s
+-- dataImport = lines . tail . caseify
+dataImport s = caseify 1 $ tail $ lines s
 
 -- Go
 main = do
   input <- readFile "A-small-practice.in"
+--  putStrLn $ show $ dataImport $ take 100 input
   putStrLn $ unlines $ map prettyCase $ dataImport input
