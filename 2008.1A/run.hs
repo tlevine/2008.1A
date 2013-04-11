@@ -25,10 +25,12 @@ dataImport :: String -> [Case]
 -- dataImport = lines . tail . caseify
 dataImport s = caseify 1 $ tail $ lines s
 
+go input = unlines $ map prettyCase $ dataImport input
+
 -- Go
 main = do
-  inFile <- getArgs
-  putStrLn $ show inFile
-  input <- readFile inFile
---  putStrLn $ show $ dataImport $ take 100 input
-  putStrLn $ unlines $ map prettyCase $ dataImport input
+  small <- readFile "A-small-practice.in"
+  writeFile "A-small-practice.out" (go small)
+
+  large <- readFile "A-large-practice.in"
+  writeFile "A-large-practice.out" (go large)
