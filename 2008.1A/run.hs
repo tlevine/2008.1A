@@ -1,3 +1,5 @@
+import Data.List (sort)
+
 type Vector = [Integer]
 type Case = (Vector, Vector)
 
@@ -10,14 +12,12 @@ vectorize :: String -> Vector
 vectorize v = map (\w -> (read w :: Integer)) $ words v
 
 -- Scalar product
-scalarProduct :: Vector -> Vector -> Vector
-scalarProduct = zipWith (*)
-
-minimumScalarProduct :: Vector -> Vector -> Integer
-minimumScalarProduct v1 v2 = scalarProduct (sort v1) (reverse $ sort v2)
+minimumScalarProduct :: (Vector, Vector) -> Integer
+minimumScalarProduct (v1, v2) = sum $ (zipWith (*)) (sort v1) (reverse $ sort v2)
 
 -- Go
 main = do
   input <- readFile "A-small-practice.in"
   -- putStrLn $ show $ caseify $ tail $ lines input
-  putStrLn $ show $ caseify $ tail $ take (9 + 1) $ lines input
+  -- putStrLn $ show $ minimumScalarProduct caseify $ tail $ take (9 + 1) $ lines input
+  putStrLn input
